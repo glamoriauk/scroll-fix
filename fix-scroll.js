@@ -13,20 +13,19 @@
         const t = e.touches[0];
         startX = t.clientX;
         startY = t.clientY;
-      }, { passive: true });
+      }, { passive: false });
 
       carousel.addEventListener('touchmove', function (e) {
         const t = e.touches[0];
         const deltaX = Math.abs(t.clientX - startX);
         const deltaY = Math.abs(t.clientY - startY);
 
-        if (deltaY < deltaX) {
-          // swipe horizontal = OK
-        } else {
-          // swipe vertical = laisser défiler
-          e.stopPropagation();
+        if (deltaY > deltaX) {
+          // L'utilisateur scrolle vers le bas → on arrête l'action du carrousel
+          e.preventDefault(); // bloque swiper.js
+          e.stopPropagation(); // laisse passer le scroll vertical
         }
-      }, { passive: true });
+      }, { passive: false });
     });
   }, 100);
 })();
