@@ -1,9 +1,9 @@
 (function(){
-  const waitForSection = setInterval(() => {
-    const section = document.querySelector('#section-363fa713');
+  const waitForCarousel = setInterval(() => {
+    const section = document.querySelector('.sio-carousel');
     if (!section) return;
 
-    clearInterval(waitForSection);
+    clearInterval(waitForCarousel);
 
     let startX = 0;
     let startY = 0;
@@ -20,9 +20,9 @@
       const deltaY = Math.abs(t.clientY - startY);
 
       if (deltaY < deltaX) {
-        // swipe horizontal = laisser le carrousel
+        // swipe horizontal = autorisé
       } else {
-        // swipe vertical = débloqué
+        // swipe vertical = on laisse défiler la page
         e.stopPropagation();
       }
     }, { passive: true });
