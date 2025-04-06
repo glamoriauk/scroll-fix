@@ -1,30 +1,32 @@
 (function(){
   const waitForCarousel = setInterval(() => {
-    const section = document.querySelector('.sio-carousel');
-    if (!section) return;
+    const carousels = document.querySelectorAll('.sio-carousel');
+    if (!carousels.length) return;
 
     clearInterval(waitForCarousel);
 
-    let startX = 0;
-    let startY = 0;
+    carousels.forEach((carousel) => {
+      let startX = 0;
+      let startY = 0;
 
-    section.addEventListener('touchstart', function (e) {
-      const t = e.touches[0];
-      startX = t.clientX;
-      startY = t.clientY;
-    }, { passive: true });
+      carousel.addEventListener('touchstart', function (e) {
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+      }, { passive: true });
 
-    section.addEventListener('touchmove', function (e) {
-      const t = e.touches[0];
-      const deltaX = Math.abs(t.clientX - startX);
-      const deltaY = Math.abs(t.clientY - startY);
+      carousel.addEventListener('touchmove', function (e) {
+        const t = e.touches[0];
+        const deltaX = Math.abs(t.clientX - startX);
+        const deltaY = Math.abs(t.clientY - startY);
 
-      if (deltaY < deltaX) {
-        // swipe horizontal = autorisé
-      } else {
-        // swipe vertical = on laisse défiler la page
-        e.stopPropagation();
-      }
-    }, { passive: true });
+        if (deltaY < deltaX) {
+          // swipe horizontal autorisé
+        } else {
+          // swipe vertical, laisser défiler
+          e.stopPropagation();
+        }
+      }, { passive: true });
+    });
   }, 100);
 })();
